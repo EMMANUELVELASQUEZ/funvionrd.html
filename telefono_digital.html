@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teléfono Digital</title>
+    <style>
+        body {
+            background: #121212;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .telefono {
+            width: 300px;
+            height: 600px;
+            border-radius: 40px;
+            background: #1f1f1f;
+            box-shadow: 0 0 20px #00ffcc55;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 3px solid #00ffc3;
+        }
+
+        .pantalla {
+            background: #000;
+            border-radius: 20px;
+            height: 60%;
+            color: #00ffc3;
+            padding: 10px;
+            font-size: 1.2rem;
+            overflow: hidden;
+        }
+
+        .teclado {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .boton {
+            padding: 20px;
+            background: #111;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #00ffc3;
+            transition: 0.2s;
+            box-shadow: inset 0 0 5px #00ffc3;
+        }
+
+        .boton:hover {
+            background: #00ffc3;
+            color: #000;
+        }
+
+        .salida {
+            height: 100px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="telefono">
+        <div class="pantalla" id="pantalla">
+            <div class="salida" id="salida"></div>
+        </div>
+        <div class="teclado">
+            <div class="boton" onclick="presionar('1')">1</div>
+            <div class="boton" onclick="presionar('2')">2</div>
+            <div class="boton" onclick="presionar('3')">3</div>
+            <div class="boton" onclick="presionar('4')">4</div>
+            <div class="boton" onclick="presionar('5')">5</div>
+            <div class="boton" onclick="presionar('6')">6</div>
+            <div class="boton" onclick="presionar('7')">7</div>
+            <div class="boton" onclick="presionar('8')">8</div>
+            <div class="boton" onclick="presionar('9')">9</div>
+            <div class="boton" onclick="borrar()">←</div>
+            <div class="boton" onclick="presionar('0')">0</div>
+            <div class="boton" onclick="llamar()">📞</div>
+        </div>
+    </div>
+
+    <script>
+        let numero = "";
+        const salida = document.getElementById('salida');
+
+        function presionar(digito) {
+            numero += digito;
+            salida.innerText = numero;
+        }
+
+        function borrar() {
+            numero = numero.slice(0, -1);
+            salida.innerText = numero;
+        }
+
+        function llamar() {
+            if (numero.length > 0) {
+                salida.innerText = "Llamando a: " + numero + "...";
+                setTimeout(() => {
+                    salida.innerText = "Conectado con: " + numero;
+                    numero = "";
+                }, 2000);
+            } else {
+                salida.innerText = "Ingrese un número.";
+            }
+        }
+    </script>
+</body>
+</html>
